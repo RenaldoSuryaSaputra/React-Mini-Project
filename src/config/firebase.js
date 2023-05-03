@@ -1,17 +1,20 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAjLNyUEHwbnFMKLJwpyIPLef4kv9kvL3w",
-  authDomain: "pasarsekawan.firebaseapp.com",
-  projectId: "pasarsekawan",
-  storageBucket: "pasarsekawan.appspot.com",
-  messagingSenderId: "96502566957",
-  appId: "1:96502566957:web:a380c5eb8826a9ca2528a4",
-  measurementId: "G-MTV76GTZF3",
+  apiKey: "AIzaSyBwwP85_zR6IJqUsJ00z2xZRq9satPsQb4",
+  authDomain: "react-pasar-sekawan.firebaseapp.com",
+  projectId: "react-pasar-sekawan",
+  storageBucket: "react-pasar-sekawan.appspot.com",
+  messagingSenderId: "441099378054",
+  appId: "1:441099378054:web:d2cdf76eb98d28f4bda007",
+  measurementId: "G-YDMS3F1V22"
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
