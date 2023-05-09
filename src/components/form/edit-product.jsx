@@ -101,13 +101,12 @@ const EditProduct = (props) => {
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               >
                 <option value="">Choose a category</option>
-                <option value="kendaraan">Kendaraan</option>
-                <option value="elektronik">Elektronik</option>
-                <option value="mainan">Mainan</option>
-                <option value="pakaian">Pakaian</option>
-                <option value="perabotan">Perabotan</option>
-                <option value="perkakas">Perkakas</option>
-                <option value="lainnya">Lainnya</option>
+                <option value="electronic">Electronic</option>
+                <option value="clothes">Clothes</option>
+                <option value="toy">Toy</option>
+                <option value="tools">Tools</option>
+                <option value="furniture">Furniture</option>
+                <option value="other">Other</option>
               </select>
             </div>
             {errors.category && (
