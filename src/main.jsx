@@ -1,15 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, redirect } from "react-router-dom";
 import "./index.css";
+import { auth } from "./config/firebase";
 import Root from "./routes/root";
 import ErrorPage from "./pages/error";
 import Home from "./pages/home";
 import Login from "./components/form/login";
 import Register from "./components/form/register";
-import ListProduct from "./pages/products";
+import Marketplace from "./pages/marketplace";
 import AdminRoot from "./routes/admin";
 import AdminDashboard from "./components/dashboard/admin";
+import DetailProduct from "./components/product/detail";
 
 const router = createBrowserRouter([
   {
@@ -23,32 +25,50 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login/>
+        element: <Login/>,
+        loader: () => {
+          if (auth?.currentUser?.uid) {
+            return redirect('/admin')
+          }
+          return null
+        },
       },
       {
         path: "/register",
-        element: <Register/>
+        element: <Register/>,
+        loader: () => {
+          if (auth?.currentUser?.uid) {
+            return redirect('/admin')
+          }
+          return null
+        },
       },
       {
-        path: "/products",
-        element: <ListProduct/>
+        path: "/marketplace",
+        element: <Marketplace/>
+      },
+      {
+        path: "/marketplace/products/:id",
+        element: <DetailProduct/>
       }
     ],
   },
   // Admin Routes
   {
     path: "/admin",
-    element: <AdminRoot />,
+    element: <AdminDashboard />,
     errorElement: <ErrorPage />,
     children: [
       {
         element: <AdminDashboard />,
-        index: true
-      },
-      {
-        path: "/admin/list-product",
-        element: <Register/>
-      },
+        index: true,
+        loader: () => {
+          if (!auth?.currentUser?.uid) {
+            return redirect('/')
+          }
+          return null
+        },
+      }
     ]
   }
 ]);

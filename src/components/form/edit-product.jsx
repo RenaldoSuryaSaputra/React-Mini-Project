@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { collection, updateDoc, doc } from "firebase/firestore";
-import { db, auth, storage } from "../../config/firebase";
+import { updateDoc, doc } from "firebase/firestore";
+import { db, storage } from "../../config/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const EditProduct = (props) => {
@@ -11,18 +11,48 @@ const EditProduct = (props) => {
     formState: { errors },
   } = useForm();
 
-
   const onSubmit = async (data) => {
-    try {
-    console.log(props.id)
+    // set file upload name
+    const fileName = new Date().getTime() + data.image[0].name;
+    // firebase collection init
     const productDoc = doc(db, "products", props.id);
-      await updateDoc(productDoc, {
-        name: data.name,
-        category: data.category,
-        description: data.description,
-        price: data.price,
-      });
-      console.log("Edit Sukses")
+    const imageProductRef = ref(storage, `products/${fileName}`);
+
+    try {
+      const uploadTask = uploadBytesResumable(imageProductRef, data.image[0]);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+          alert("Error Upload File");
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await updateDoc(productDoc, {
+              name: data.name,
+              category: data.category,
+              description: data.description,
+              price: data.price,
+              image: downloadURL,
+            });
+          });
+        }
+      );
     } catch (err) {
       console.error(err);
     }
@@ -30,133 +60,135 @@ const EditProduct = (props) => {
 
   return (
     <>
-      <form
-        action=""
-        className="bg-gray-200 shadow-md rounded px-12 p-3"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="mb-4  ">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2 pt-5"
-            htmlFor="name"
-          >
-            Product Name Edit
-          </label>
-          <input
-            {...register("name", {
-              required: "This input is required.",
-              pattern: {
-                value: /^[a-zA-Z0-9 ]*$/,
-                message: "This input is cannot contain symbols.",
-              },
-            })}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-2"
-            type="text"
-            placeholder="Handpone"
-          />
-          {errors.name && (
-            <p className="text-red-700"> {errors?.name?.message} </p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="name"
-          >
-            Product Category
-          </label>
+      <form className="w-full max-w-xl" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="grid-first-name"
+            >
+              Product Name
+            </label>
+            <input
+              {...register("name", {
+                required: "This input is required.",
+                pattern: {
+                  value: /^[a-zA-Z0-9 ]*$/,
+                  message: "This input is cannot contain symbols.",
+                },
+              })}
+              className="appearance-none block w-full bg-gray-200 text-gray-700 borderrounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              type="text"
+              placeholder="Supra"
+            />
+            {errors.name && (
+              <p className="text-red-700"> {errors?.name?.message} </p>
+            )}
+          </div>
 
-          <select
-            {...register("category", {
-              required: "This input is required.",
-            })}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-2"
-          >
-            <option value="">Choose a category</option>
-            <option value="kendaraan">Kendaraan</option>
-            <option value="elektronik">Elektronik</option>
-            <option value="FmainanR">Mainan</option>
-            <option value="pakaian">Pakaian</option>
-            <option value="perabotan">Perabotan</option>
-            <option value="perkakas">Perkakas</option>
-            <option value="lainnya">Lainnya</option>
-          </select>
-          {errors.category && (
-            <p className="text-red-700"> {errors?.category?.message} </p>
-          )}
+          <div className="w-full md:w-1/2 px-3">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="grid-state"
+            >
+              Category
+            </label>
+            <div className="relative">
+              <select
+                {...register("category", {
+                  required: "This input is required.",
+                })}
+                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              >
+                <option value="">Choose a category</option>
+                <option value="kendaraan">Kendaraan</option>
+                <option value="elektronik">Elektronik</option>
+                <option value="mainan">Mainan</option>
+                <option value="pakaian">Pakaian</option>
+                <option value="perabotan">Perabotan</option>
+                <option value="perkakas">Perkakas</option>
+                <option value="lainnya">Lainnya</option>
+              </select>
+            </div>
+            {errors.category && (
+              <p className="text-red-700"> {errors?.category?.message} </p>
+            )}
+          </div>
         </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="name"
-          >
-            Product Description
-          </label>
-          <textarea
-            {...register("description", {
-              required: "This input is required.",
-            })}
-            id="description"
-            rows="4"
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-2"
-            placeholder="Isikan detail produk disini ..."
-          ></textarea>
-          {errors.description && (
-            <p className="text-red-700"> {errors?.description?.message} </p>
-          )}
+
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="grid-password"
+            >
+              Product Description
+            </label>
+            <textarea
+              {...register("description", {
+                required: "This input is required.",
+              })}
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              rows="5"
+            />
+            {errors.description && (
+              <p className="text-red-700"> {errors?.description?.message} </p>
+            )}
+          </div>
         </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="name"
-          >
-            Product Price
-          </label>
-          <input
-            {...register("price", {
-              required: "This input is required.",
-              pattern: {
-                value: /^[1-9]+\d*(?:\.\d+)?$/,
-                message: "Product price cannot start with 0",
-              },
-            })}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-2"
-            type="number"
-            placeholder="2000"
-          />
-          {errors.price && (
-            <p className="text-red-700"> {errors?.price?.message} </p>
-          )}
+        <div className="flex flex-wrap -mx-3 mb-2">
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="grid-city"
+            >
+              Product price
+            </label>
+            <input
+              {...register("price", {
+                required: "This input is required.",
+                pattern: {
+                  value: /^\d+\.\d{3}/,
+                  message: "Product price input format must not contain any letters"
+                },
+              })}
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              type="text"
+              placeholder="2.000.000"
+            />
+            {errors.price && (
+              <p className="text-red-700"> {errors?.price?.message} </p>
+            )}
+          </div>
+
+          <div className="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="grid-zip"
+            >
+              Image Upload
+            </label>
+            <input
+              {...register("image", {
+                required: "Please select an image to upload",
+              })}
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              type="file"
+            />
+            {errors.image && (
+              <p className="text-red-700"> {errors?.image?.message} </p>
+            )}
+          </div>
         </div>
-        <div className="mb-4">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Upload file
-          </label>
-          <input
-            //   {...register("image", {
-            //     required: "Please select an image to upload",
-            //     maxSize: {
-            //        value: 2000000, message: "File size exceeds 2 MB"
-            //     }
-            //  })}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-2"
-            aria-describedby="file_input_help"
-            id="file_input"
-            type="file"
-          />
-        </div>
-        <div>
+        <div className="flex mb-6 justify-end">
           <button
-            type="submit"
-            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Submit
-          </button>
-          <button
-            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="py-4 px-5 font-semibold bg-white text-red-600 rounded-md uppercase me-3"
             onClick={props.closeModal}
           >
             Close
+          </button>
+          <button className="py-4 px-5 font-bold bg-blue-500 text-white rounded-md uppercase">
+            Submit
           </button>
         </div>
       </form>

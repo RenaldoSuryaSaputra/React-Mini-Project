@@ -4,21 +4,20 @@ import { Link } from "react-router-dom";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  { name: "Product", href: "/products", current: true },
+  { name: "Product", href: "/marketplace", current: true },
 ];
 
 export default function HeaderNav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="inset-x-0 top-0 z-50 bg-blue-900">
+    <header className="top-0 sticky bg-gradient-to-r from-blue-800 to-blue-600 z-50">
       <nav
-        className="flex items-center justify-between p-6 lg:px-8"
+        className="flex items-center justify-between p-4 lg:px-8"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <Link to="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+          <Link to="/" className="-m-1.5 p-1.5">
             <h1 className="text-white text-3xl font-bold">PasarSekawan</h1>
           </Link>
         </div>
@@ -76,12 +75,11 @@ export default function HeaderNav() {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-50" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-blue-900 px-6 py-6">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full h-fit overflow-y-auto bg-gradient-to-r from-blue-800 to-blue-600 px-6 py-6">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+            <Link to="/" className="-m-1.5 p-1.5">
               <h1 className="text-white text-3xl font-bold">PasarSekawan</h1>
-            </a>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5"
@@ -109,13 +107,13 @@ export default function HeaderNav() {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className="-mx-3 block rounded-lg px-3 py-2 text-xl font-semibold leading-7 text-white hover:bg-blue-500"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
               <div className="py-6">

@@ -5,10 +5,8 @@ import HeaderNav from "../components/navigation/header";
 const Root = () => {
   return (
     <div>
-      <nav>
-        <HeaderNav/>
-      </nav>
-      <main className="">
+      <HeaderNav />
+      <main>
         <Outlet />
       </main>
     </div>

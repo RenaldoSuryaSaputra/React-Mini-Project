@@ -21,11 +21,10 @@ const AdminNav = () => {
   }
 
   return (
-    <div>
       <div
         className={` ${
           open ? "w-72" : "w-20 "
-        } bg-gray-600 h-screen p-5 pt-8 relative duration-300`}
+        } bg-gray-600 h-screen p-5 pt-8 relative  duration-300`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +129,6 @@ const AdminNav = () => {
           </li>
         </ul>
       </div>
-    </div>
   );
 };
 
