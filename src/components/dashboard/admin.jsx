@@ -25,9 +25,9 @@ const AdminDashboard = () => {
   const [productList, setProductList] = useState(filteredList);
   const [showModal, setShowModal] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
-  const [editId, setEditId] = useState("");
 
   const [userDetail, setUserDetail] = useState([]);
+  const [editId, setEditId] = useState("");
 
   const navigate = useNavigate();
 
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
       .then(() => {
         // Sign-out successful.
         console.log("Logout Sukses");
-        navigate("/");
+        navigate("/login");
       })
       .catch((error) => {
         // An error happened.
@@ -84,12 +84,12 @@ const AdminDashboard = () => {
   return (
     <>
       <nav className="fixed border-r-4 bg-slate-100 h-screen w-60 p-6 ">
-        <a href="/" className="flex items-center pl-2.5 mb-5">
+        <Link to="/" className="flex items-center pl-2.5 mb-5">
           <img src="" className="h-6 mr-3 sm:h-7" alt="Flowbite Logo" />
           <span className="self-center text-xl font-semibold whitespace-nowrap text-black">
             Seller Area
           </span>
-        </a>
+        </Link>
         <div className="relative h-full mt-6">
           <ul>
             <li>
@@ -126,30 +126,32 @@ const AdminDashboard = () => {
                 <span className="text-lg font-semibold">Home</span>
               </Link>
             </li>
-            <li className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-400 hover:text-white  mt-5"
-            onClick={handleLogout}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6 mx-3"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-                  />
-                </svg>
+            <li
+              className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-400 hover:text-white  mt-5"
+              onClick={handleLogout}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 mx-3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                />
+              </svg>
 
-                <span className="text-lg font-semibold">Logout</span>
+              <span className="text-lg font-semibold">Logout</span>
             </li>
           </ul>
         </div>
       </nav>
       <div className="relative w-[calc(100%-240px)] bg-gradient-to-t from-gray-200 to-gray-100 left-60 p-6 drop-shadow-lg mb-2">
-        <p className="text-3xl font-bold">Welcome, {userDetail?.seller}</p>
+        <p className="text-3xl font-bold">Welcome, {userDetail?.name}</p>
         <p className="text-xl font-md mt-2">You can manage your product here</p>
       </div>
 
@@ -163,38 +165,64 @@ const AdminDashboard = () => {
             Add Product
           </button>
         </div>
-        <div className="bg-black">
+        <div>
           {productList
-          .filter(
-            (product) =>
-              product.name.toLowerCase().includes(filteredList) ||
-              product.category.toLowerCase().includes(filteredList)
-          )
-          ?.map((product, index) => (
-            <div className="float-left d-inline-block me-4 mb-4">
-              <ProductCard
-                key={index}
-                id={product.id}
-                name={product.name}
-                category={product.category}
-                description={product.description}
-                price={product.price}
-                sellerId={product.sellerId}
-                image={product.image}
-                onDeleteItem={() => {
-                  if (confirm("Ingin hapus data ?")) {
-                    deleteProduct(product.id);
-                  } else {
-                    return;
-                  }
-                }}
-                onEditItem={() => {
-                  setShowModalEdit(true);
-                  setEditId(product.id);
-                }}
-              />
-            </div>
-          ))}
+            .filter(
+              (product) =>
+                product.name.toLowerCase().includes(filteredList) ||
+                product.category.toLowerCase().includes(filteredList)
+            )
+            ?.map((product) => (
+              <div className="border mb-5 text-gray-800 text-center md:text-left">
+                <div className="block h-fit rounded-lg shadow-lg bg-white">
+                  <div className="flex flex-wrap items-center">
+                    <div className="block lg:flex w-full lg:w-6/12 xl:w-4/12">
+                      <img
+                        src={product.image}
+                        alt="Product Image"
+                        className="w-70 h-70 rounded-t-lg lg:rounded-tr-none lg:rounded-bl-lg"
+                      />
+                    </div>
+                    <div className="w-full lg:w-6/12 xl:w-8/12 ps-5">
+                      <h2 className="text-2xl font-bold mb-2 text-black uppercase">
+                        {product.name}
+                      </h2>
+                      <p className="font-bold mb-2 uppercase text-orange-500">
+                        {product.category}
+                      </p>
+                      <p className="text-black mb-2 ">{`${product.description.substring(0,200)} ...`}</p>
+                      <p className="font-bold mb-2 uppercase text-black">
+                        RP. {product.price}
+                      </p>
+
+                      <div className="flex items-center justify-left">
+                        <button
+                          className="rounded-md bg-[#e4e6eb] p-2 text-black w-40 me-2 font-semibold"
+                          onClick={() => {
+                            if (confirm("Ingin hapus data ?")) {
+                              deleteProduct(product.id);
+                            } else {
+                              return;
+                            }
+                          }}
+                        >
+                          Delete
+                        </button>
+                        <button
+                          className="rounded-md bg-[#e4e6eb] p-2 text-black w-40 ms-2 font-semibold"
+                          onClick={() => {
+                            setShowModalEdit(true);
+                            setEditId(product.id);
+                          }}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
         </div>
       </main>
 

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  { name: "Product", href: "/marketplace", current: true },
+  { name: "Marketplace", href: "/marketplace", current: true },
 ];
 
 export default function HeaderNav() {
