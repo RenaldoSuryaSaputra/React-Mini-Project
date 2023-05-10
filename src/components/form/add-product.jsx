@@ -10,6 +10,7 @@ const AddProduct = (props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -57,6 +58,7 @@ const AddProduct = (props) => {
               image: downloadURL,
             });
             console.log("Suskess");
+            reset()
           });
         }
       );
@@ -199,12 +201,12 @@ const AddProduct = (props) => {
         </div>
         <div className="flex mb-6 justify-end">
           <button
-            className="py-4 px-5 font-semibold bg-white text-red-600 rounded-md uppercase me-3"
+            className="py-4 px-5 font-semibold bg-white text-red-600 hover:bg-red-100 rounded-md uppercase me-3"
             onClick={props.closeModal}
           >
             Close
           </button>
-          <button className="py-4 px-5 font-bold bg-blue-500 text-white rounded-md uppercase">
+          <button className="py-4 px-5 font-bold bg-blue-500 hover:bg-blue-200 text-white rounded-md uppercase">
             Submit
           </button>
         </div>

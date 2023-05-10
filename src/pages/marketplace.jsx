@@ -95,7 +95,7 @@ const Marketplace = () => {
       </div>
 
       <main>
-        <div className="py-6 sm:px-6 lg:px-8">
+        <div className="py-6 block mx-24">
           {productList
             .filter(
               (product) =>

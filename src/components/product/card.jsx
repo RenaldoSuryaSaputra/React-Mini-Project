@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const ProductCard = (props) => {
   return (
-    <div className="shadow-lg bg-white border w-60">
+    <div className="shadow-lg bg-white border w-60 h-[360px]">
       <img
         className="rounded-lg w-60 h-40"
         src={props?.image ? props.image : ""}
@@ -13,8 +13,9 @@ const ProductCard = (props) => {
         <span className="text-sm font-bold uppercase text-orange-500">
           {props.category}
         </span>
-        <h5 className="mt-2 font-semibold text-xl uppercase">{props.name}</h5>
-        <h5 className="mt-2 font-normal text-md">Rp {props.price}</h5>
+        <p className="mt-2 font-semibold text-xl uppercase">{props.name}</p>
+        <p className="mt-2 font-normal text-sm">{`${props.description.substring(0,20)} ...`}</p>
+        <p className="mt-2 font-semibold text-md">Rp {props.price}</p>
       </div>
       <div className="flex items-center justify-center">
         {props?.onDeleteItem && (

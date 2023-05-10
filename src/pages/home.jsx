@@ -1,5 +1,5 @@
 import React from 'react'
-import UserDashboard from '../components/dashboard/user'
+import UserDashboard from '../components/landing-page/user'
 
 const Home = () => {
   return (
