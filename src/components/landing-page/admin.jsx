@@ -227,7 +227,8 @@ const AdminDashboard = () => {
         </div>
       </main>
 
-      <div className="">
+  {/* Modal Section */}
+      <div>
         {showModal ? (
           <>
             <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
