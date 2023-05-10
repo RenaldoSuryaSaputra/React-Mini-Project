@@ -23,7 +23,7 @@ const Marketplace = () => {
   );
   useEffect(() => {
     getProducts();
-  }, []);
+  });
 
   return (
     <>
