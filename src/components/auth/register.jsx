@@ -4,6 +4,7 @@ import { auth, db } from "../../config/firebase";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -192,12 +193,12 @@ const Register = () => {
               </form>
               <p className="mt-10 text-center text-sm text-gray-500">
                 Already have account?
-                <a
-                  href="/login"
+                <Link
+                  to="/login"
                   className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                 >
                   Login
-                </a>
+                </Link>
               </p>
             </div>
           </div>
