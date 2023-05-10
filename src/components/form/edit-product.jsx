@@ -8,6 +8,7 @@ const EditProduct = (props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -50,6 +51,7 @@ const EditProduct = (props) => {
               price: data.price,
               image: downloadURL,
             });
+            reset()
           });
         }
       );
