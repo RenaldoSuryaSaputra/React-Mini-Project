@@ -48,13 +48,13 @@ export default function HeaderNav() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a
+            <Link
               key={item.name}
-              href={item.href}
+              to={item.href}
               className="text-xl font-semibold leading-6 text-white"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">

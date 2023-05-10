@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -152,12 +153,12 @@ const Login = () => {
               </form>
               <p className="mt-10 text-center text-sm text-gray-500">
                 Not a member?
-                <a
-                  href="/register"
+                <Link
+                  to="/register"
                   className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                 >
                   Register
-                </a>
+                </Link>
               </p>
             </div>
           </div>
