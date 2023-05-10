@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const UserDashboard = () => {
   return (
@@ -86,7 +87,7 @@ const UserDashboard = () => {
             </path>
           </g>
         </svg>
-        <div className="container md:px-12 xl:px-32 md:mt-12 xl:mt-32 ">
+        <div className="container md:mt-12 xl:mt-32 ">
           <div className="text-center text-gray-800">
             <div
               className="block rounded-lg shadow-lg px-6 py-12 md:py-16 md:px-12 "
@@ -95,28 +96,19 @@ const UserDashboard = () => {
                 backdropFilter: "saturate(200%) blur(25px)",
               }}
             >
-              <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-12">
-                The best offer on the market <br />
-                <span className="text-blue-600">for your business</span>
+              <h1 className="text-5xl md:text-5xl xl:text-6xl font-bold tracking-tight mb-12">
+              Find the right solution for your needs here <br />
               </h1>
-              <a
+              <Link
                 className="inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
-                href="#!"
+                to="/marketplace"
                 role="button"
               >
                 Get started
-              </a>
-              <a
-                className="inline-block px-7 py-3 text-white bg-transparent font-medium text-xs leading-tight uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out"
-                data-mdb-ripple="true"
-                data-mdb-ripple-color="light"
-                href="#!"
-                role="button"
-              >
-                Learn more
-              </a>
+              </Link>
+
             </div>
           </div>
         </div>
