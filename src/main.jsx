@@ -6,11 +6,10 @@ import { auth } from "./config/firebase";
 import Root from "./routes/root";
 import ErrorPage from "./pages/error";
 import Home from "./pages/home";
-import Login from "./components/form/login";
-import Register from "./components/form/register";
+import Login from "./components/auth/login";
+import Register from "./components/auth/register";
 import Marketplace from "./pages/marketplace";
-import AdminRoot from "./routes/admin";
-import AdminDashboard from "./components/dashboard/admin";
+import AdminDashboard from "./components/landing-page/admin";
 import DetailProduct from "./components/product/detail";
 
 const router = createBrowserRouter([

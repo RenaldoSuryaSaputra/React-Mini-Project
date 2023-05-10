@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 // component
 import AddProduct from "../form/add-product";
-import ProductCard from "../product/card";
 import EditProduct from "../form/edit-product";
 
 // Firebase
@@ -85,9 +84,8 @@ const AdminDashboard = () => {
     <>
       <nav className="fixed border-r-4 bg-slate-100 h-screen w-60 p-6 ">
         <Link to="/" className="flex items-center pl-2.5 mb-5">
-          <img src="" className="h-6 mr-3 sm:h-7" alt="Flowbite Logo" />
           <span className="self-center text-xl font-semibold whitespace-nowrap text-black">
-            Seller Area
+            Dashboard Seller
           </span>
         </Link>
         <div className="relative h-full mt-6">
@@ -174,13 +172,13 @@ const AdminDashboard = () => {
             )
             ?.map((product) => (
               <div className="border mb-5 text-gray-800 text-center md:text-left">
-                <div className="block h-fit rounded-lg shadow-lg bg-white">
+                <div className="block h-fit rounded-lg shadow-lg bg-white border-2">
                   <div className="flex flex-wrap items-center">
-                    <div className="block lg:flex w-full lg:w-6/12 xl:w-4/12">
+                    <div className="block lg:flex w-full lg:w-6/12 xl:w-3/12">
                       <img
                         src={product.image}
                         alt="Product Image"
-                        className="w-70 h-70 rounded-t-lg lg:rounded-tr-none lg:rounded-bl-lg"
+                        className="m-2 w-60 h-60 rounded-t-lg lg:rounded-tr-none lg:rounded-bl-lg"
                       />
                     </div>
                     <div className="w-full lg:w-6/12 xl:w-8/12 ps-5">
@@ -191,8 +189,8 @@ const AdminDashboard = () => {
                         {product.category}
                       </p>
                       <p className="text-black mb-2 ">{`${product.description.substring(0,200)} ...`}</p>
-                      <p className="font-bold mb-2 uppercase text-black">
-                        RP. {product.price}
+                      <p className="font-bold mb-2 text-black">
+                        Rp. {product.price}
                       </p>
 
                       <div className="flex items-center justify-left">
