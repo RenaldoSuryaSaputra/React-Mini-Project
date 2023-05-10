@@ -7,9 +7,9 @@ const Marketplace = () => {
   const [filteredList, setFilteredList] = useState([]);
   const [productList, setProductList] = useState(filteredList);
 
-  // LISTEN (REALTIME)
-  const getProducts = onSnapshot(
-    collection(db, "products"),
+  // Fungsi get product realtime
+  const getProducts = () => {
+    onSnapshot(collection(db, "products"),
     (snapShot) => {
       let list = [];
       snapShot.docs.forEach((doc) => {
@@ -20,10 +20,10 @@ const Marketplace = () => {
     (error) => {
       console.log(error);
     }
-  );
+  )};
   useEffect(() => {
     getProducts();
-  });
+  },[]);
 
   return (
     <>
