@@ -87,10 +87,10 @@ const UserDashboard = () => {
             </path>
           </g>
         </svg>
-        <div className="container md:mt-12 xl:mt-32 ">
-          <div className="text-center text-gray-800">
+        <div className="container md:mt-12 xl:mt-32">
+          <div className="text-center block text-gray-800">
             <div
-              className="block rounded-lg shadow-lg px-6 py-12 md:py-16 md:px-12 "
+              className="block m-auto rounded-lg shadow-lg px-6 py-12 md:py-16 md:px-12 w-2/3 "
               style={{
                 backgroundColor: "hsla(0, 0%, 100%, 0.8)",
                 backdropFilter: "saturate(200%) blur(25px)",
@@ -106,7 +106,19 @@ const UserDashboard = () => {
                 to="/marketplace"
                 role="button"
               >
-                Get started
+                Go Shopping
+              </Link>
+              <h1 className="text-md font-semibold tracking-tight my-4">
+              Or add your product
+              </h1>
+              <Link
+                className="inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                data-mdb-ripple="true"
+                data-mdb-ripple-color="light"
+                to="/login"
+                role="button"
+              >
+                be a seller
               </Link>
 
             </div>
