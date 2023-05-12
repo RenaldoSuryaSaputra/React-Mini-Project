@@ -30,66 +30,66 @@ const Marketplace = () => {
       <div className="p-4 border-b-2">
         <input
           type="search"
-          className="xl:w-1/2 md:w-2/3 block m-auto rounded-2xl border border-solid border-black px-3 py-2 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)]"
-          placeholder="Search"
+          className="xl:w-1/2 md:w-2/3 sm:w-full block m-auto rounded-2xl border border-solid border-black px-3 py-2 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)]"
+          placeholder="Pencarian"
           onChange={(e) => setFilteredList(e.target.value)}
         />
         <div className="text-center mt-4">
           <button
-            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md"
+            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md my-2"
             onClick={() => {
               setFilteredList("");
             }}
           >
-            All  
+            Semua  
           </button>
           <button
-            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md"
+            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md my-2"
             onClick={() => {
               setFilteredList("electronic");
             }}
           >
-            Electronic
+            Elektronik
           </button>
           <button
-            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md"
+            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md my-2"
             onClick={() => {
               setFilteredList("clothes");
             }}
           >
-            Clothes
+            Pakaian
           </button>
           <button
-            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md"
+            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md my-2"
             onClick={() => {
               setFilteredList("toy");
             }}
           >
-            Toy
+            Mainan
           </button>
           <button
-            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md"
+            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md my-2"
             onClick={() => {
               setFilteredList("tools");
             }}
           >
-            Tools
+            Peralatan
           </button>
           <button
-            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md"
+            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md my-2"
             onClick={() => {
               setFilteredList("furniture");
             }}
           >
-            Furniture
+            Perabotan
           </button>
           <button
-            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md"
+            className="bg-gray-300 hover:bg-black hover:text-white w-24 rounded-full mx-4 text-black py-1 px-2 text-md my-2"
             onClick={() => {
               setFilteredList("other");
             }}
           >
-            Other
+            Lainnya
           </button>
         </div>
       </div>

@@ -19,12 +19,15 @@ import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import { ModalNotif } from "../modal";
+
 const AdminDashboard = () => {
   const [filteredList, setFilteredList] = useState([]);
   const [productList, setProductList] = useState(filteredList);
-  const [showModal, setShowModal] = useState(false);
+  const [showModalAdd, setShowModalAdd] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
+  const [modalNotif, setModalNotif] = useState(false);
   const [userDetail, setUserDetail] = useState([]);
   const [productId, setProductId] = useState("");
 
@@ -88,7 +91,7 @@ const AdminDashboard = () => {
       <nav className="fixed border-r-4 bg-slate-100 h-screen w-60 p-6 ">
         <Link to="/" className="flex items-center pl-2.5 mb-5">
           <span className="self-center text-xl font-semibold whitespace-nowrap text-black">
-            Dashboard Seller
+            Dashboard Penjual
           </span>
         </Link>
         <div className="relative h-full mt-6">
@@ -99,7 +102,7 @@ const AdminDashboard = () => {
                   <input
                     type="search"
                     className="relative m-0 block w-[1px] min-w-0 flex-auto rounded border-2 border-solid border-black px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)]"
-                    placeholder="Search"
+                    placeholder="Pencariaan"
                     onChange={(e) => setFilteredList(e.target.value)}
                   />
                 </div>
@@ -124,7 +127,7 @@ const AdminDashboard = () => {
                     d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
                   />
                 </svg>
-                <span className="text-lg font-semibold">Home</span>
+                <span className="text-lg font-semibold">Beranda</span>
               </Link>
             </li>
             <li
@@ -152,8 +155,10 @@ const AdminDashboard = () => {
         </div>
       </nav>
       <div className="relative w-[calc(100%-240px)] bg-gradient-to-t from-gray-200 to-gray-100 left-60 p-6 drop-shadow-lg mb-2">
-        <p className="text-3xl font-bold">Welcome, {userDetail?.name}</p>
-        <p className="text-xl font-md mt-2">You can manage your product here</p>
+        <p className="text-3xl font-bold">Selamat datang, {userDetail?.name}</p>
+        <p className="text-xl font-md mt-2">
+          Kelola produk milik anda disini
+        </p>
       </div>
 
       <main className="left-60 w-[calc(100%-240px)] relative h-screen bg-white p-3">
@@ -161,9 +166,9 @@ const AdminDashboard = () => {
           <button
             className="bg-blue-500 rounded p-2 text-white font-semibold hover:bg-blue-300 mb-4"
             type="button"
-            onClick={() => setShowModal(true)}
+            onClick={() => setShowModalAdd(true)}
           >
-            Add Product
+            Masukan Produk
           </button>
         </div>
         <div>
@@ -207,7 +212,7 @@ const AdminDashboard = () => {
                             setProductId(product.id);
                           }}
                         >
-                          Delete
+                          Hapus
                         </button>
                         <button
                           className="rounded-md bg-[#e4e6eb] p-2 text-black w-40 ms-2 font-semibold"
@@ -216,7 +221,7 @@ const AdminDashboard = () => {
                             setProductId(product.id);
                           }}
                         >
-                          Edit
+                          Ubah
                         </button>
                       </div>
                     </div>
@@ -227,9 +232,9 @@ const AdminDashboard = () => {
         </div>
       </main>
 
-  {/* Modal Section */}
+      {/* Modal Section */}
       <div>
-        {showModal ? (
+        {showModalAdd ? (
           <>
             <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
               <div className="relative w-auto mx-auto max-w-3xl">
@@ -241,7 +246,7 @@ const AdminDashboard = () => {
                   <div className="px-10 pt-6">
                     <AddProduct
                       closeModal={() => {
-                        setShowModal(false);
+                        setShowModalAdd(false);
                       }}
                     />
                   </div>
@@ -313,7 +318,7 @@ const AdminDashboard = () => {
                     />
                   </svg>
                   <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                    Are you sure you want to delete this product?
+                    Apakah anda yakin ingin menghapus produk ini?
                   </h3>
                   <button
                     data-modal-hide="popup-modal"
@@ -321,7 +326,7 @@ const AdminDashboard = () => {
                     onClick={() => setShowModalDelete(false)}
                     className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                   >
-                    No, cancel
+                    Tidak, kembali
                   </button>
                   <button
                     data-modal-hide="popup-modal"
@@ -329,15 +334,23 @@ const AdminDashboard = () => {
                     onClick={() => {
                       deleteProduct(productId);
                       setShowModalDelete(false);
+                      setModalNotif(true)
                     }}
                     className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                   >
-                    Yes, I'm sure
+                    Ya, tentu
                   </button>
                 </div>
               </div>
             </div>
           </>
+        ) : null}
+        {modalNotif ? (
+          <ModalNotif
+            onClose={() => {
+              setModalNotif(false);
+            }}
+          />
         ) : null}
       </div>
     </>

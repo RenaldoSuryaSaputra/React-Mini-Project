@@ -3,8 +3,8 @@ import { Dialog } from "@headlessui/react";
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Marketplace", href: "/marketplace", current: true },
+  { name: "Beranda", href: "/", current: true },
+  { name: "Pasar", href: "/marketplace", current: true },
 ];
 
 export default function HeaderNav() {

@@ -16,6 +16,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Fungsi login 
   const onSubmit = (data) => {
     setLoading(true);
     setTimeout(() => {
@@ -64,16 +65,16 @@ const Login = () => {
                     htmlFor="email"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Email address
+                    Email
                   </label>
                   <div className="mt-2">
                     <input
                       {...register("email", {
-                        required: "This input is required.",
+                        required: "Input ini wajib diisi",
                         pattern: {
                           value:
                             /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                          message: "Invalid email address",
+                          message: "Email tidak valid",
                         },
                       })}
                       type="email"
@@ -98,10 +99,10 @@ const Login = () => {
                   <div className="mt-2">
                     <input
                       {...register("password", {
-                        required: "This input is required.",
+                        required: "Input ini wajib diisi",
                         minLength: {
                           value: 6,
-                          message: "Password at least 6 characters",
+                          message: "Panjang password setidaknya 6 karakter",
                         },
                       })}
                       type="password"
@@ -147,17 +148,17 @@ const Login = () => {
                         />
                       </svg>
                     )}
-                    Login
+                    Masuk
                   </button>
                 </div>
               </form>
               <p className="mt-10 text-center text-sm text-gray-500">
-                Not a member?
+                Belum memiliki akun? 
                 <Link
                   to="/register"
                   className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                 >
-                  Register
+                  Daftar
                 </Link>
               </p>
             </div>
