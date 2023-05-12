@@ -19,7 +19,7 @@ const DetailProduct = () => {
   return (
     <>
       <div className="container mx-auto p-6">
-        <h1 className="text-center text-2xl font-bold mb-4">Detail Product</h1>
+        <h1 className="text-center text-2xl font-bold mb-4">Detail Produk</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <img src={productDetail.image} className="w-full h-96" />
@@ -33,23 +33,27 @@ const DetailProduct = () => {
               <p className="mt-2 text-gray-600">{productDetail.description}</p>
             </div>
             <div className="mt-6 border-t-2">
-
-              <p className="text-lg font-bold ">Seller Information</p>
+              <p className="text-lg font-bold ">Informasi Penjual</p>
               <p className="text-lg">{productDetail.sellerName}</p>
               <p className="text-sm italic">
-                for more information and transaction about this product please contact the
-                seller via the button below
+                Silahkan hubungi penjual untuk informasi lebih lanjut mengenai
+                barang dan transaksi
               </p>
               <button
                 className="mt-2  bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
-                onClick={() =>
-                  window.open(
-                    `https://wa.me/${productDetail.sellerPhone}`,
-                    "_blank"
-                  )
-                }
+                onClick={() => {
+                  productDetail?.sellerContact
+                    ? window.open(
+                        `https://www.instagram.com/${productDetail.sellerContact}`,
+                        "_blank"
+                      )
+                    : window.open(
+                        `https://www.instagram.com/renaldo_surya`,
+                        "_blank"
+                      );
+                }}
               >
-                Contact Seller
+                Hubungi penjual
               </button>
             </div>
           </div>

@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import { collection, addDoc, onSnapshot, doc } from "firebase/firestore";
 import { db, auth, storage } from "../../config/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ModalNotif } from "../modal";
 
 const AddProduct = (props) => {
   const [userDetail, setUserDetail] = useState([]);
+  const [modalNotif, setModalNotif] = useState(false);
   // React hook form
   const {
     register,
@@ -23,6 +25,7 @@ const AddProduct = (props) => {
     const imageProductRef = ref(storage, `products/${fileName}`);
 
     try {
+      // untuk melihat proses upload pada console
       const uploadTask = uploadBytesResumable(imageProductRef, data.image[0]);
       uploadTask.on(
         "state_changed",
@@ -55,18 +58,22 @@ const AddProduct = (props) => {
               sellerId: auth?.currentUser?.uid,
               sellerName: userDetail.name,
               sellerPhone: userDetail.phone,
+              sellerContact: userDetail?.contact ? userDetail.contact : null,
               image: downloadURL,
             });
             console.log("Suskess");
-            reset()
+            reset();
+            setModalNotif(true)
           });
         }
       );
     } catch (err) {
       console.error(err);
     }
+
   };
 
+  // get seller detail
   const getSellerDetail = () => {
     onSnapshot(doc(db, "users", `${auth?.currentUser?.uid}`), (doc) => {
       setUserDetail(doc.data());
@@ -86,11 +93,11 @@ const AddProduct = (props) => {
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-first-name"
             >
-              Product Name
+              Nama Produk
             </label>
             <input
               {...register("name", {
-                required: "This input is required.",
+                required: "Input ini wajib diisi",
                 pattern: {
                   value: /^[a-zA-Z0-9 ]*$/,
                   message: "This input is cannot contain symbols.",
@@ -110,22 +117,22 @@ const AddProduct = (props) => {
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-state"
             >
-              Category
+              Kategori
             </label>
             <div className="relative">
               <select
                 {...register("category", {
-                  required: "This input is required.",
+                  required: "Input ini wajib diisi",
                 })}
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               >
-                <option value="">Choose a category</option>
-                <option value="electronic">Electronic</option>
-                <option value="clothes">Clothes</option>
-                <option value="toy">Toy</option>
-                <option value="tools">Tools</option>
-                <option value="furniture">Furniture</option>
-                <option value="other">Other</option>
+                <option value="">Pilih Kategori</option>
+                <option value="elektronik">Elektronik</option>
+                <option value="pakaian">Pakaian</option>
+                <option value="mainan">Mainan</option>
+                <option value="peralatan">Peralatan</option>
+                <option value="perabotan">Perabotan</option>
+                <option value="lainnya">Lainnya</option>
               </select>
             </div>
             {errors.category && (
@@ -140,11 +147,11 @@ const AddProduct = (props) => {
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-password"
             >
-              Product Description
+              Deskripsi Produk
             </label>
             <textarea
               {...register("description", {
-                required: "This input is required.",
+                required: "Input ini wajib diisi",
               })}
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               rows="5"
@@ -160,11 +167,11 @@ const AddProduct = (props) => {
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-city"
             >
-              Product price
+              Harga
             </label>
             <input
               {...register("price", {
-                required: "This input is required.",
+                required: "Input ini wajib diisi",
                 pattern: {
                   value: /^\d+\.\d{3}/,
                   message:
@@ -185,11 +192,11 @@ const AddProduct = (props) => {
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-zip"
             >
-              Image Upload
+              Gambar
             </label>
             <input
               {...register("image", {
-                required: "Please select an image to upload",
+                required: "Nohon pilih gambar untuk diupload",
               })}
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               type="file"
@@ -204,13 +211,23 @@ const AddProduct = (props) => {
             className="py-4 px-5 font-semibold bg-white text-red-600 hover:bg-red-100 rounded-md uppercase me-3"
             onClick={props.closeModal}
           >
-            Close
+            Tutup
           </button>
           <button className="py-4 px-5 font-bold bg-blue-500 hover:bg-blue-200 text-white rounded-md uppercase">
-            Submit
+            Unggah
           </button>
         </div>
       </form>
+
+      <div>
+        {modalNotif ? (
+          <ModalNotif
+            onClose={() => {
+              setModalNotif(false);
+            }}
+          />
+        ) : null}
+      </div>
     </>
   );
 };

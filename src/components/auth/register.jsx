@@ -15,6 +15,8 @@ const Register = () => {
   } = useForm();
 
   const [loading, setLoading] = useState(false);
+
+  // Fungsi tambah data 
   const onSubmit = async (data) => {
     setLoading(true);
     setTimeout(async () => {
@@ -27,6 +29,7 @@ const Register = () => {
         await setDoc(doc(db, "users", res.user.uid), {
           name: data.name,
           phone: `62${data.number}`,
+          contact: data.contact,
           email: data.email,
           password: data.password,
           timeStamp: serverTimestamp(),
@@ -44,7 +47,7 @@ const Register = () => {
   return (
     <>
       <section className="h-screen">
-        <div className="container h-full px-6 py-24">
+        <div className="container h-full px-6 py-6">
           <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
             {/* Left column container with background*/}
             <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12">
@@ -59,23 +62,23 @@ const Register = () => {
             </div>
             {/* Right column container with form */}
             <div className="md:w-8/12 lg:ml-6 lg:w-6/12">
-              <h1 className="text-center font-semibold text-xl mb-5">
+              <h1 className="text-center font-semibold text-xl mb-2">
                 SIGN UP
               </h1>
               <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                <div className="mb-4">
+                <div >
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-1"
                     htmlFor="name"
                   >
-                    Full Name
+                    Nama Lengkap
                   </label>
                   <input
                     {...register("name", {
-                      required: "This input is required.",
+                      required: "Input ini wajib diisi",
                       pattern: {
                         value: /^[a-zA-Z0-9 ]*$/,
-                        message: "This input is cannot contain symbols.",
+                        message: "Input ini tidak boleh mengandung simbol",
                       },
                     })}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-2"
@@ -86,12 +89,12 @@ const Register = () => {
                     <p className="text-red-700"> {errors?.name?.message} </p>
                   )}
                 </div>
-                <div className="mb-4">
+                <div>
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-1"
                     htmlFor="number"
                   >
-                    Whatsapp Number
+                    Nomor panggilan aktif
                   </label>
                   <div>
                     <span className="p-2 bg-slate-400 rounded-md text-white me-2">
@@ -99,11 +102,11 @@ const Register = () => {
                     </span>
                     <input
                       {...register("number", {
-                        required: "This input is required.",
+                        required: "Input ini wajib diisi",
                         pattern: {
                           value: /^[1-9]\d*$/,
                           message:
-                            "This input must contain a number and not start with 0",
+                            "Input harus sesuai format",
                         },
                       })}
                       className="w-80 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-2"
@@ -115,16 +118,40 @@ const Register = () => {
                     <p className="text-red-700"> {errors?.number?.message} </p>
                   )}
                 </div>
-                <div className="mb-4">
+                <div>
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-1"
+                    htmlFor="number"
+                  >
+                    Instagram
+                  </label>
+                  <div>
+                    <span className="p-2 bg-slate-400 rounded-md text-white me-2">
+                      @
+                    </span>
+                    <input
+                      {...register("contact", {
+                        required: "Input ini wajib diisi",
+                      })}
+                      className="w-80 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-2"
+                      type="text"
+                      placeholder="81295041613"
+                    />
+                  </div>
+                  {errors.contact && (
+                    <p className="text-red-700"> {errors?.contact?.message} </p>
+                  )}
+                </div>
+                <div>
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-1"
                     htmlFor="email"
                   >
                     Email
                   </label>
                   <input
                     {...register("email", {
-                      required: "This input is required.",
+                      required: "Input ini wajib diisi",
                       pattern: {
                         value:
                           /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
@@ -139,16 +166,16 @@ const Register = () => {
                     <p className="text-red-700"> {errors?.email?.message} </p>
                   )}
                 </div>
-                <div className="mb-4">
+                <div>
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-1"
                     htmlFor="password"
                   >
                     Password
                   </label>
                   <input
                     {...register("password", {
-                      required: "This input is required.",
+                      required: "Input ini wajib diisi",
                       minLength: {
                         value: 6,
                         message: "Password at least 6 characters",
@@ -188,11 +215,11 @@ const Register = () => {
                       />
                     </svg>
                   )}
-                  <span>Register</span>
+                  <span>Daftar</span>
                 </button>
               </form>
-              <p className="mt-10 text-center text-sm text-gray-500">
-                Already have account?
+              <p className=" text-center text-sm text-gray-500">
+                Sudah memiliki akun?
                 <Link
                   to="/login"
                   className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
