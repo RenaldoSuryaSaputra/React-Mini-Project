@@ -223,6 +223,7 @@ const AddProduct = (props) => {
       <div>
         {modalNotif ? (
           <ModalNotif
+            message= "Berhasil tambah data"
             onClose={() => {
               setModalNotif(false);
             }}
