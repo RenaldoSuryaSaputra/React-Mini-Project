@@ -124,9 +124,8 @@ const UserDashboard = () => {
         </div>
       </div>
 
-      {/* Container for demo purpose */}
+      {/* Kontak section */}
       <div className="container my-24 px-6 mx-auto">
-        {/* Section: Design Block */}
         <section className="mb-32 text-gray-800">
           <div className="flex justify-center">
             <div className="text-center lg:max-w-3xl md:max-w-xl">
@@ -139,20 +138,7 @@ const UserDashboard = () => {
                 <div className="form-group mb-6">
                   <input
                     type="text"
-                    className="form-control block
-      w-full
-      px-3
-      py-1.5
-      text-base
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="exampleInput7"
                     placeholder="Nama"
                   />
@@ -160,43 +146,15 @@ const UserDashboard = () => {
                 <div className="form-group mb-6">
                   <input
                     type="email"
-                    className="form-control block
-      w-full
-      px-3
-      py-1.5
-      text-base
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    className="form-control block w-full px-3
+                    text-base py-1.5 font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="exampleInput8"
                     placeholder="Alamat Email"
                   />
                 </div>
                 <div className="form-group mb-6">
                   <textarea
-                    className="
-      form-control
-      block
-      w-full
-      px-3
-      py-1.5
-      text-base
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-    "
+                    className=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="exampleFormControlTextarea13"
                     rows={3}
                     placeholder="Pesan"
@@ -213,24 +171,7 @@ const UserDashboard = () => {
                 </div>
                 <button
                   type="submit"
-                  className="
-    w-full
-    px-6
-    py-2.5
-    bg-blue-600
-    text-white
-    font-medium
-    text-xs
-    leading-tight
-    uppercase
-    rounded
-    shadow-md
-    hover:bg-blue-700 hover:shadow-lg
-    focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-    active:bg-blue-800 active:shadow-lg
-    transition
-    duration-150
-    ease-in-out"
+                  className=" w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 >
                   Kirim
                 </button>
@@ -288,7 +229,9 @@ const UserDashboard = () => {
                       </div>
                     </div>
                     <div className="grow ml-6">
-                      <p className="font-bold mb-1">Pertanyaan seputar penjualan</p>
+                      <p className="font-bold mb-1">
+                        Pertanyaan seputar penjualan
+                      </p>
                       <p className="text-gray-500">sales@example.com</p>
                       <p className="text-gray-500">+1 234-567-89</p>
                     </div>

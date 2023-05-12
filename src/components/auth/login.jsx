@@ -16,7 +16,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Fungsi login 
+  // Fungsi login dengan signInWithEmailAndPassword pada firebase
   const onSubmit = (data) => {
     setLoading(true);
     setTimeout(() => {
@@ -54,7 +54,8 @@ const Login = () => {
                 autoplay
               ></lottie-player>
             </div>
-            {/* Right column container with form */}
+
+            {/* Form section */}
             <div className="md:w-8/12 lg:ml-6 lg:w-6/12">
               <h1 className="text-center font-semibold text-xl mb-5">
                 SIGN IN

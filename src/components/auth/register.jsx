@@ -16,16 +16,18 @@ const Register = () => {
 
   const [loading, setLoading] = useState(false);
 
-  // Fungsi tambah data 
+  // Fungsi tambah data kedalam firebase auth dan firestore
   const onSubmit = async (data) => {
     setLoading(true);
     setTimeout(async () => {
       try {
+        // tambah auth
         const res = await createUserWithEmailAndPassword(
           auth,
           data.email,
           data.password
         );
+        // data tambahan untuk auth
         await setDoc(doc(db, "users", res.user.uid), {
           name: data.name,
           phone: `62${data.number}`,
