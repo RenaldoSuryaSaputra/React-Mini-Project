@@ -22,6 +22,7 @@ const EditProduct = (props) => {
     const productDoc = doc(db, "products", props.id);
     const imageProductRef = ref(storage, `products/${fileName}`);
 
+    // Metode upload gambar pada firebase
     try {
       const uploadTask = uploadBytesResumable(imageProductRef, data.image[0]);
       uploadTask.on(
@@ -47,6 +48,7 @@ const EditProduct = (props) => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            // menambahkan data pada firestore 
             await updateDoc(productDoc, {
               name: data.name,
               category: data.category,

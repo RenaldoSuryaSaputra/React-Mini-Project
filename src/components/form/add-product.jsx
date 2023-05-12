@@ -50,6 +50,7 @@ const AddProduct = (props) => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            // menambahkan data pada firestore products
             await addDoc(productCollectionRef, {
               name: data.name,
               category: data.category,
@@ -73,7 +74,7 @@ const AddProduct = (props) => {
 
   };
 
-  // get seller detail
+  // Mendapatkan data penjual
   const getSellerDetail = () => {
     onSnapshot(doc(db, "users", `${auth?.currentUser?.uid}`), (doc) => {
       setUserDetail(doc.data());

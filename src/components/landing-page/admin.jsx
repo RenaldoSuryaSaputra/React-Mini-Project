@@ -22,14 +22,17 @@ import { Link } from "react-router-dom";
 import { ModalNotif } from "../modal";
 
 const AdminDashboard = () => {
+  // use state untuk mendapatkan list product / detail produk
   const [filteredList, setFilteredList] = useState([]);
   const [productList, setProductList] = useState(filteredList);
+  const [userDetail, setUserDetail] = useState([]);
+  const [productId, setProductId] = useState("");
+
+  // use State untuk modal
   const [showModalAdd, setShowModalAdd] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [modalNotif, setModalNotif] = useState(false);
-  const [userDetail, setUserDetail] = useState([]);
-  const [productId, setProductId] = useState("");
 
   const navigate = useNavigate();
 
@@ -172,6 +175,7 @@ const AdminDashboard = () => {
           </button>
         </div>
         <div>
+          {/* mapping berdasarkan list product */}
           {productList
             .filter(
               (product) =>
