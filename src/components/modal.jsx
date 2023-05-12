@@ -46,7 +46,7 @@ export const ModalNotif = (props) => {
               onClick={() => {props.onClose()}}
               className="text-green-600 text-xl bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-full border-2 border-green-500 font-medium px-20 py-2.5 focus:z-10 "
             >
-              Sukses
+              {props.message}
             </button>
           </div>
         </div>

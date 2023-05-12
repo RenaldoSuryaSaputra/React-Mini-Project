@@ -351,6 +351,7 @@ const AdminDashboard = () => {
         ) : null}
         {modalNotif ? (
           <ModalNotif
+            message= "Berhasil hapus data"
             onClose={() => {
               setModalNotif(false);
             }}

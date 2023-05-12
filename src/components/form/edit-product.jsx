@@ -195,13 +195,14 @@ const EditProduct = (props) => {
             Tutup
           </button>
           <button className="py-4 px-5 font-bold bg-blue-500 text-white rounded-md uppercase">
-            Unggah
+            perbarui
           </button>
         </div>
       </form>
       <div>
         {modalNotif ? (
           <ModalNotif
+            message= "Berhasil memperbarui data"
             onClose={() => {
               setModalNotif(false);
             }}
