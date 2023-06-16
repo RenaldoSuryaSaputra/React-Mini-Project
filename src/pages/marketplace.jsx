@@ -81,12 +81,6 @@ const Marketplace = () => {
             }}
           />
           <ButtonCategory
-            label="Mainan"
-            onClick={() => {
-              setFilteredList("mainan");
-            }}
-          />
-          <ButtonCategory
             label="Peralatan"
             onClick={() => {
               setFilteredList("peralatan");
